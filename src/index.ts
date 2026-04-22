@@ -9,7 +9,7 @@ export class TranslationPlatform {
 
   constructor(config: SDKConfig) {
     this.config = {
-      baseUrl: 'http://localhost:5000/api/v1/sdk',
+      baseUrl: 'https://locale-flow-backend-2.onrender.com/api/v1/sdk',
       defaultLanguage: 'en',
       cacheTime: 1000 * 60 * 60, // 1 hour
       reportMissing: true,
