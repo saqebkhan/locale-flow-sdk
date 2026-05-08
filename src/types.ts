@@ -3,12 +3,20 @@ export interface SDKConfig {
   projectId: string;
   baseUrl?: string;
   defaultLanguage?: string;
+  defaultNamespace?: string;
   cacheTime?: number; // in milliseconds
   reportMissing?: boolean;
+  onLog?: (log: any) => void;
 }
 
 export interface TranslationData {
-  [key: string]: string;
+  [namespace: string]: {
+    [key: string]: string;
+  };
 }
 
 export type InterpolationParams = { [key: string]: string | number };
+
+export type TOptions = InterpolationParams & {
+  ns?: string;
+};

@@ -1,26 +1,25 @@
-import type { TranslationData } from './types';
 
 export class Cache {
   private prefix = 'tp_cache_';
 
-  set(projectId: string, lang: string, data: TranslationData, ttl: number) {
+  set(key: string, data: any, ttl: number) {
     if (typeof localStorage === 'undefined') return;
     const item = {
       data,
       expiry: Date.now() + ttl
     };
-    localStorage.setItem(`${this.prefix}${projectId}_${lang}`, JSON.stringify(item));
+    localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(item));
   }
 
-  get(projectId: string, lang: string): TranslationData | null {
+  get(key: string): any | null {
     if (typeof localStorage === 'undefined') return null;
-    const raw = localStorage.getItem(`${this.prefix}${projectId}_${lang}`);
+    const raw = localStorage.getItem(`${this.prefix}${key}`);
     if (!raw) return null;
 
     try {
       const item = JSON.parse(raw);
       if (Date.now() > item.expiry) {
-        localStorage.removeItem(`${this.prefix}${projectId}_${lang}`);
+        localStorage.removeItem(`${this.prefix}${key}`);
         return null;
       }
       return item.data;
